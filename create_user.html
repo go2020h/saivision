@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIu30d3u30b8u30e7u30f3 - u7ba1u7406u8005u30e6u30fcu30b6u30fcu4f5cu6210</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #6c757d;
+        }
+        .success {
+            border-left-color: #28a745;
+            background-color: #e8f5e9;
+        }
+        .error {
+            border-left-color: #dc3545;
+            background-color: #f8d7da;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .info-box {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .credentials {
+            background-color: #fff3cd;
+            border: 1px dashed #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .credentials h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .credentials p {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AIu30d3u30b8u30e7u30f3 u7ba1u7406u8005u30e6u30fcu30b6u30fcu4f5cu6210</h1>
+        
+        <div class="info-box">
+            <p>u3053u306eu30dau30fcu30b8u3067u306fu3001u7ba1u7406u753bu9762u306bu30edu30b0u30a4u30f3u3059u308bu305fu3081u306eu7ba1u7406u8005u30e6u30fcu30b6u30fcu3092u4f5cu6210u3057u307eu3059u3002</p>
+            <p>u300cu7ba1u7406u8005u30e6u30fcu30b6u30fcu4f5cu6210u300du30dcu30bfu30f3u3092u30afu30eau30c3u30afu3057u3066u3001u7ba1u7406u8005u30a2u30abu30a6u30f3u30c8u3092u4f5cu6210u3057u307eu3059u3002</p>
+        </div>
+        
+        <div class="credentials">
+            <h3>u7ba1u7406u8005u30a2u30abu30a6u30f3u30c8u60c5u5831</h3>
+            <p><strong>u30e1u30fcu30ebu30a2u30c9u30ecu30b9:</strong> admin_saivision@example.com</p>
+            <p><strong>u30d1u30b9u30efu30fcu30c9:</strong> sMYC#za)7n2T</p>
+            <p>u203b u3053u306eu60c5u5831u306fu5b89u5168u306au5834u6240u306bu4fddu7ba1u3057u3066u304fu3060u3055u3044u3002</p>
+        </div>
+        
+        <button id="create-user-button" class="btn">u7ba1u7406u8005u30e6u30fcu30b6u30fcu4f5cu6210</button>
+        <a href="admin/index.html" class="btn" style="margin-left: 10px;">u7ba1u7406u753bu9762u3078</a>
+        
+        <div id="status" class="status hidden"></div>
+        <pre id="log" class="hidden"></pre>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="create_user.js"></script>
+    <script>
+        // u30b9u30c6u30fcu30bfu30b9u8868u793au7528u306eu95a2u6570
+        function updateStatus(message, type = 'info') {
+            const statusElement = document.getElementById('status');
+            statusElement.textContent = message;
+            statusElement.className = `status ${type}`;
+            statusElement.classList.remove('hidden');
+        }
+        
+        // u30edu30b0u8868u793au7528u306eu95a2u6570
+        function addLog(message) {
+            const logElement = document.getElementById('log');
+            logElement.textContent += message + '\n';
+            logElement.classList.remove('hidden');
+        }
+        
+        // u30b3u30f3u30bdu30fcu30ebu30edu30b0u3092u30aau30fcu30d0u30fcu30e9u30a4u30c9
+        const originalConsoleLog = console.log;
+        console.log = function() {
+            // u5143u306econsole.logu3092u547cu3073u51fau3059
+            originalConsoleLog.apply(console, arguments);
+            // u30edu30b0u306bu8ffdu52a0
+            addLog(Array.from(arguments).join(' '));
+        };
+        
+        const originalConsoleError = console.error;
+        console.error = function() {
+            // u5143u306econsole.erroru3092u547cu3073u51fau3059
+            originalConsoleError.apply(console, arguments);
+            // u30a8u30e9u30fcu3068u3057u3066u30edu30b0u306bu8ffdu52a0
+            addLog('u30a8u30e9u30fc: ' + Array.from(arguments).join(' '));
+            updateStatus('u30a8u30e9u30fcu304cu767au751fu3057u307eu3057u305fu3002u8a73u7d30u306fu30edu30b0u3092u78bau8a8du3057u3066u304fu3060u3055u3044u3002', 'error');
+        };
+        
+        // u30e6u30fcu30b6u30fcu4f5cu6210u30dcu30bfu30f3u306eu30a4u30d9u30f3u30c8u30eau30b9u30cau30fc
+        document.getElementById('create-user-button').addEventListener('click', function() {
+            this.disabled = true;
+            updateStatus('u7ba1u7406u8005u30e6u30fcu30b6u30fcu4f5cu6210u4e2d...u304au5f85u3061u304fu3060u3055u3044');
+            
+            try {
+                createAdminUser().then(() => {
+                    updateStatus('u7ba1u7406u8005u30e6u30fcu30b6u30fcu306eu4f5cu6210u304cu5b8cu4e86u3057u307eu3057u305fuff01', 'success');
+                    this.disabled = false;
+                }).catch(error => {
+                    console.error('u7ba1u7406u8005u30e6u30fcu30b6u30fcu4f5cu6210u4e2du306bu30a8u30e9u30fcu304cu767au751fu3057u307eu3057u305f:', error);
+                    this.disabled = false;
+                });
+            } catch (error) {
+                console.error('u7ba1u7406u8005u30e6u30fcu30b6u30fcu4f5cu6210u306eu5b9fu884cu306bu5931u6557u3057u307eu3057u305f:', error);
+                this.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

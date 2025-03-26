@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIビジョン 番組表管理システム</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- ログイン画面 -->
+        <div id="login-container" class="auth-container">
+            <div class="auth-box">
+                <h1>AIビジョン 管理システム</h1>
+                <div class="auth-form">
+                    <div class="form-group">
+                        <label for="email">メールアドレス</label>
+                        <input type="email" id="email" placeholder="メールアドレスを入力">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">パスワード</label>
+                        <input type="password" id="password" placeholder="パスワードを入力">
+                    </div>
+                    <button id="login-button" class="btn btn-primary">ログイン</button>
+                    <p id="login-error" class="error-message"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 管理画面 (最初は非表示) -->
+        <div id="admin-container" class="admin-container hidden">
+            <header class="admin-header">
+                <h1>AIビジョン 番組表管理システム</h1>
+                <div class="user-info">
+                    <span id="user-email"></span>
+                    <button id="logout-button" class="btn btn-outline">ログアウト</button>
+                </div>
+            </header>
+
+            <main class="admin-content">
+                <div class="sidebar">
+                    <nav class="admin-nav">
+                        <ul>
+                            <li><a href="#" class="active" data-section="programs">番組一覧</a></li>
+                            <li><a href="#" data-section="add-program">番組追加</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="content-area">
+                    <!-- 番組一覧セクション -->
+                    <section id="programs-section" class="content-section">
+                        <div class="section-header">
+                            <h2>番組一覧</h2>
+                            <div class="filter-controls">
+                                <select id="type-filter">
+                                    <option value="all">すべて</option>
+                                    <option value="コンテンツ">コンテンツ</option>
+                                    <option value="時報">時報</option>
+                                </select>
+                                <input type="date" id="date-filter">
+                                <button id="filter-button" class="btn btn-secondary">絞り込み</button>
+                                <button id="reset-filter-button" class="btn btn-outline">リセット</button>
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table id="programs-table" class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>番組名</th>
+                                        <th>放送日時</th>
+                                        <th>種類</th>
+                                        <th>カテゴリ</th>
+                                        <th>時間（分）</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="programs-table-body">
+                                    <!-- JavaScriptで動的に生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="pagination" class="pagination">
+                            <!-- JavaScriptで動的に生成 -->
+                        </div>
+                    </section>
+
+                    <!-- 番組追加セクション -->
+                    <section id="add-program-section" class="content-section hidden">
+                        <div class="section-header">
+                            <h2 id="form-title">番組追加</h2>
+                        </div>
+
+                        <form id="program-form" class="admin-form">
+                            <input type="hidden" id="program-id">
+                            <div class="form-group">
+                                <label for="title">番組名 <span class="required">*</span></label>
+                                <input type="text" id="title" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="broadcast-date">放送日 <span class="required">*</span></label>
+                                    <input type="date" id="broadcast-date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="broadcast-time">放送時間 <span class="required">*</span></label>
+                                    <input type="time" id="broadcast-time" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="program-type">種類 <span class="required">*</span></label>
+                                    <select id="program-type" required>
+                                        <option value="コンテンツ">コンテンツ</option>
+                                        <option value="時報">時報</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="duration">放送時間（分） <span class="required">*</span></label>
+                                    <input type="number" id="duration" min="5" max="180" value="30" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">カテゴリ</label>
+                                <select id="category">
+                                    <option value="">選択してください</option>
+                                    <option value="tech">テクノロジー</option>
+                                    <option value="education">教育</option>
+                                    <option value="entertainment">エンターテイメント</option>
+                                    <option value="health">健康</option>
+                                    <option value="news">ニュース</option>
+                                    <option value="art">アート</option>
+                                    <option value="hourly">時報</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">番組説明</label>
+                                <textarea id="description" rows="4"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="thumbnail-url">サムネイルURL</label>
+                                <input type="url" id="thumbnail-url">
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" id="save-button" class="btn btn-primary">保存</button>
+                                <button type="button" id="cancel-button" class="btn btn-outline">キャンセル</button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+        <!-- 削除確認モーダル -->
+        <div id="delete-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>番組の削除</h3>
+                <p>この番組を削除してもよろしいですか？この操作は元に戻せません。</p>
+                <div class="modal-actions">
+                    <button id="confirm-delete" class="btn btn-danger">削除する</button>
+                    <button id="cancel-delete" class="btn btn-outline">キャンセル</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase JavaScript SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="admin.js"></script>
+    <script src="admin_part2.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者ユーザー作成</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border-left: 4px solid #4CAF50;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Supabase管理者ユーザー作成</h1>
+        <p>以下のボタンをクリックして、Supabaseに管理者ユーザーを作成します。</p>
+        <p>管理者ユーザー情報：</p>
+        <ul>
+            <li>メールアドレス: <input type="email" id="admin-email" value="go2020.hidane.inc@gmail.com" style="width: 250px;"></li>
+            <li>パスワード: <input type="text" id="admin-password" value="sMYC#za)7n2T" style="width: 250px;"></li>
+        </ul>
+        <button id="create-user-button">管理者ユーザーを作成</button>
+        <div id="result"></div>
+    </div>
+
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- 管理者ユーザー作成スクリプト -->
+    <script>
+        // Supabaseの設定
+        const SUPABASE_URL = 'https://cdpthzwwczpwlypadhbz.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkcHRoend3Y3pwd2x5cGFkaGJ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI3ODc2NzYsImV4cCI6MjA1ODM2MzY3Nn0.woIzlcCR94Niz-WelVqmweSPFqUlTmONrqxTrXl4_z0';
+
+        // 結果表示用の要素
+        const resultElement = document.getElementById('result');
+
+        // 管理者ユーザー作成関数
+        async function createAdminUser() {
+            try {
+                // 処理中メッセージ
+                resultElement.innerHTML = '<p>管理者ユーザーの作成を開始します...</p>';
+                
+                // Supabaseクライアントの初期化
+                const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                
+                // 通常のサインアップ方法を試みる
+                resultElement.innerHTML += '<p>通常のサインアップ方法を試みます...</p>';
+                const adminEmail = document.getElementById('admin-email').value;
+                const adminPassword = document.getElementById('admin-password').value;
+                const { data: signUpData, error: signUpError } = await supabaseClient.auth.signUp({
+                    email: adminEmail,
+                    password: adminPassword,
+                });
+                
+                if (signUpError) {
+                    resultElement.innerHTML += `<p style="color: red">サインアップエラー: ${signUpError.message || '不明なエラー'}</p>`;
+                    console.error('サインアップエラー:', signUpError);
+                    return;
+                }
+                
+                resultElement.innerHTML += `<p style="color: green">サインアップ成功!</p>`;
+                resultElement.innerHTML += `<p>確認メールが送信されました（実際のメールアドレスを使用している場合）。</p>`;
+                resultElement.innerHTML += `<p>作成されたユーザー情報:</p>`;
+                resultElement.innerHTML += `<pre>${JSON.stringify(signUpData, null, 2)}</pre>`;
+                
+            } catch (error) {
+                resultElement.innerHTML += `<p style="color: red">予期せぬエラーが発生しました: ${error.message || '不明なエラー'}</p>`;
+                console.error('予期せぬエラーが発生しました:', error);
+            }
+        }
+
+        // ボタンにイベントリスナーを設定
+        document.addEventListener('DOMContentLoaded', () => {
+            const createUserButton = document.getElementById('create-user-button');
+            if (createUserButton) {
+                createUserButton.addEventListener('click', createAdminUser);
+            }
+        });
+    </script>
+</body>
+</html>

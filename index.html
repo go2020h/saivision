@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIビジョン - ほぼ日刊AIビジョン新聞</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header__container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo_b.svg" alt="AIVision" width="150">
+                </a>
+            </div>
+            <div class="header__date">2025年3月14日(日)</div>
+            <div class="search">
+                <form class="searchForm">
+                    <input type="text" class="searchForm__input" placeholder="サイト内検索">
+                    <button type="submit" class="searchForm__button"><i class="fas fa-search"></i></button>
+                </form>
+                <div class="links">
+                    <a href="#">ログイン <i class="fas fa-user"></i></a>
+                    <a href="#">お気に入り <i class="fas fa-heart"></i></a>
+                </div>
+            </div>
+            <a class="header__menu__btn" href="#">
+                <span class="header__menu__bar header__menu__bar-top"></span>
+                <span class="header__menu__bar header__menu__bar-middle"></span>
+                <span class="header__menu__bar header__menu__bar-bottom"></span>
+            </a>
+        </div>
+        <div class="menuGlobal__container">
+            <ul class="menuGlobal">
+                <li class="iconMenu" data-id="1" data-content="post-content"><a href="#">無料で投稿</a></li>
+                <li class="iconMenu iconMenu__home active" data-id="2" data-content="top-content">トップ</li>
+                <li class="iconMenu" data-id="3" data-content="supporter-content"><a href="#">サポーターになる</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- ページコンテンツコンテナ -->
+    <div class="page-content-container">
+        <!-- 無料で投稿コンテンツ -->
+        <div id="post-content" class="page-content">
+            <div class="content-placeholder">
+                <h2>無料で投稿</h2>
+                <p>投稿内容がここに表示されます</p>
+            </div>
+        </div>
+
+        <!-- トップコンテンツ -->
+        <div id="top-content" class="page-content active">
+            <!-- アプリバナー -->
+            <div class="app">
+                <div class="app-banner">
+                    <div class="app-banner__content">
+                        <img src="images/banner-image.png" alt="AIVisionアプリで読もう" class="app-banner__image">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ヒーロー -->
+            <div class="hero">
+                <div class="hero-content">
+                    <div class="hero-logo">
+                        <img src="images/logo_w.svg" alt="AIVision" width="250">
+                    </div>
+                    <div class="hero-text">
+                        <h1>ほぼ日刊AIビジョン新聞</h1>
+                        <p>最新のAIニュースとトレンドをご紹介します</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 番組表 -->
+            <div class="program-guide">
+                <h2 class="section-title">今日のAI番組表</h2>
+                <div class="program-tabs">
+                    <button class="tab-button active" data-tab="all">全て</button>
+                    <button class="tab-button" data-tab="regular">コンテンツ</button>
+                    <button class="tab-button" data-tab="hourly">時報</button>
+                </div>
+                <div class="program-schedule-container">
+                    <div class="program-content-wrapper">
+                        <div class="program-container">
+                            <div class="program-header">
+                                <div class="time-header">時間</div>
+                                <div class="channel-header">AIビジョン</div>
+                            </div>
+                            
+                            <!-- 全ての番組 -->
+                            <div class="program-grid tab-content active" id="all-content">
+                                <!-- 時間帯 -->
+                                <div class="time-column">
+                                    <div class="time-block">10:00</div>
+                                    <div class="time-block">11:00</div>
+                                    <div class="time-block">12:00</div>
+                                    <div class="time-block">13:00</div>
+                                </div>
+                                <!-- チャンネル1 -->
+                                <div class="channel-column">
+                                    <div class="program-block" style="height: 120px;">
+                                        <div class="program-title">AIニュース</div>
+                                        <div class="program-category news">ニュース</div>
+                                    </div>
+                                    <div class="program-block" style="height: 60px;">
+                                        <div class="program-title">AI時報</div>
+                                        <div class="program-category hourly">時報</div>
+                                    </div>
+                                    <div class="program-block" style="height: 60px;">
+                                        <div class="program-title">AI技術解説</div>
+                                        <div class="program-category tech">技術</div>
+                                    </div>
+                                    <div class="program-block" style="height: 60px;">
+                                        <div class="program-title">AI時報</div>
+                                        <div class="program-category hourly">時報</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="program-grid tab-content" id="regular-content">
+                                <!-- 時間帯 -->
+                                <div class="time-column">
+                                    <div class="time-block">10:00</div>
+                                    <div class="time-block">12:00</div>
+                                </div>
+                                <!-- チャンネル1 -->
+                                <div class="channel-column">
+                                    <div class="program-block" style="height: 120px;">
+                                        <div class="program-title">AIニュース</div>
+                                        <div class="program-category news">ニュース</div>
+                                    </div>
+                                    <div class="program-block" style="height: 60px;">
+                                        <div class="program-title">AI技術解説</div>
+                                        <div class="program-category tech">技術</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="program-grid tab-content" id="hourly-content">
+                                <!-- 時間帯 -->
+                                <div class="time-column">
+                                    <div class="time-block">11:00</div>
+                                    <div class="time-block">13:00</div>
+                                </div>
+                                <!-- チャンネル1 -->
+                                <div class="channel-column">
+                                    <div class="program-block" style="height: 60px;">
+                                        <div class="program-title">AI時報</div>
+                                        <div class="program-category hourly">時報</div>
+                                    </div>
+                                    <div class="program-block" style="height: 60px;">
+                                        <div class="program-title">AI時報</div>
+                                        <div class="program-category hourly">時報</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- デイリーランキング -->
+                    <div class="daily-ranking">
+                        <h3 class="daily-ranking-title">デイリーランキング</h3>
+                        <div class="ranking-list">
+                            <div class="ranking-item">
+                                <div class="ranking-number">1</div>
+                                <div class="ranking-content">
+                                    <h4>AIが選ぶ今週のトレンド技術</h4>
+                                    <div class="ranking-meta">3月18日 08:30</div>
+                                </div>
+                            </div>
+                            <div class="ranking-item">
+                                <div class="ranking-number">2</div>
+                                <div class="ranking-content">
+                                    <h4>最新の画像生成AIモデルを比較</h4>
+                                    <div class="ranking-meta">3月18日 10:15</div>
+                                </div>
+                            </div>
+                            <div class="ranking-item">
+                                <div class="ranking-number">3</div>
+                                <div class="ranking-content">
+                                    <h4>AIと著作権：最新の法的動向</h4>
+                                    <div class="ranking-meta">3月17日 16:45</div>
+                                </div>
+                            </div>
+                            <div class="ranking-item">
+                                <div class="ranking-number">4</div>
+                                <div class="ranking-content">
+                                    <h4>自動運転技術の最前線レポート</h4>
+                                    <div class="ranking-meta">3月17日 09:20</div>
+                                </div>
+                            </div>
+                            <div class="ranking-item">
+                                <div class="ranking-number">5</div>
+                                <div class="ranking-content">
+                                    <h4>AIアシスタントの使い方完全ガイド</h4>
+                                    <div class="ranking-meta">3月16日 14:10</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- メインコンテンツ -->
+            <main class="main">
+                <!-- 特集記事 -->
+                <section class="featured">
+                    <h2 class="section-title">特集記事</h2>
+                    <div class="featured-container">
+                        <div class="featured-item">
+                            <div class="featured-image">
+                                <img src="images/featured1.jpg" alt="特集記事1">
+                            </div>
+                            <div class="featured-content">
+                                <h3>AIが変える未来の働き方</h3>
+                                <p>人工知能の発展により、私たちの働き方はどのように変わるのか？最新の研究と事例から探ります。</p>
+                                <div class="article-meta">
+                                    <span class="article-date">2025.03.14</span>
+                                    <span class="article-category">テクノロジー</span>
+                                </div>
+                                <div class="social-share-buttons">
+                                    <a href="#" class="share-button share-twitter"><i class="fab fa-twitter"></i>ツイート</a>
+                                    <a href="#" class="share-button share-facebook"><i class="fab fa-facebook-f"></i>シェア</a>
+                                    <a href="#" class="share-button share-line"><i class="fab fa-line"></i>LINEで送る</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 最新記事 -->
+                <section class="latest">
+                    <h2 class="section-title">最新記事</h2>
+                    <div class="articles-container">
+                        <div class="article-card">
+                            <div class="article-image">
+                                <img src="images/article1.jpg" alt="記事1">
+                            </div>
+                            <div class="article-content">
+                                <h3>生成AIの最新動向</h3>
+                                <p>テキスト、画像、音声を生成する人工知能の最新技術と応用事例を紹介します。</p>
+                                <div class="article-meta">
+                                    <span class="article-date">2025.03.14</span>
+                                    <span class="article-category">AI</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="article-card">
+                            <div class="article-image">
+                                <img src="images/article2.jpg" alt="記事2">
+                            </div>
+                            <div class="article-content">
+                                <h3>医療分野におけるAI活用</h3>
+                                <p>診断支援から創薬まで、医療現場で活躍する人工知能技術の最前線。</p>
+                                <div class="article-meta">
+                                    <span class="article-date">2025.03.13</span>
+                                    <span class="article-category">医療</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="article-card">
+                            <div class="article-image">
+                                <img src="images/article3.jpg" alt="記事3">
+                            </div>
+                            <div class="article-content">
+                                <h3>自動運転技術の進化</h3>
+                                <p>レベル4、5を目指す自動運転技術の最新状況と今後の展望について解説します。</p>
+                                <div class="article-meta">
+                                    <span class="article-date">2025.03.12</span>
+                                    <span class="article-category">自動車</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 人気記事 -->
+                <section class="popular">
+                    <h2 class="section-title">人気記事</h2>
+                    <div class="articles-container">
+                        <div class="article-card">
+                            <div class="article-image">
+                                <img src="images/popular1.jpg" alt="人気記事1">
+                            </div>
+                            <div class="article-content">
+                                <h3>AIと著作権問題</h3>
+                                <p>生成AIが作り出したコンテンツの著作権はどうなるのか？法的課題と解決策。</p>
+                                <div class="article-meta">
+                                    <span class="article-date">2025.03.10</span>
+                                    <span class="article-category">法律</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="article-card">
+                            <div class="article-image">
+                                <img src="images/popular2.jpg" alt="人気記事2">
+                            </div>
+                            <div class="article-content">
+                                <h3>量子コンピュータとAI</h3>
+                                <p>量子コンピュータの発展がAI研究にもたらす革命的変化とは？</p>
+                                <div class="article-meta">
+                                    <span class="article-date">2025.03.08</span>
+                                    <span class="article-category">テクノロジー</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 購読プラン -->
+                <section class="subscription">
+                    <h2 class="section-title">購読プラン</h2>
+                    <div class="subscription-container">
+                        <div class="subscription-card">
+                            <div class="subscription-header">
+                                <h3>無料プラン</h3>
+                                <p class="price">¥0 <span>/月</span></p>
+                            </div>
+                            <div class="subscription-content">
+                                <ul>
+                                    <li>基本記事の閲覧</li>
+                                    <li>週1回のニュースレター</li>
+                                    <li>コメント機能</li>
+                                </ul>
+                                <button class="subscription-button">登録する</button>
+                            </div>
+                        </div>
+                        <div class="subscription-card premium">
+                            <div class="subscription-header">
+                                <h3>プレミアムプラン</h3>
+                                <p class="price">¥980 <span>/月</span></p>
+                            </div>
+                            <div class="subscription-content">
+                                <ul>
+                                    <li>すべての記事の閲覧</li>
+                                    <li>毎日のニュースレター</li>
+                                    <li>コメント機能</li>
+                                    <li>専門家による分析レポート</li>
+                                    <li>オンラインセミナー参加権</li>
+                                </ul>
+                                <button class="subscription-button">登録する</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- お知らせ -->
+                <section class="news">
+                    <h2 class="section-title">お知らせ</h2>
+                    <div class="news-container">
+                        <div class="news-item">
+                            <div class="news-date">2025.03.14</div>
+                            <div class="news-content">
+                                <h3>AIVision メンバーシップ</h3>
+                                <p>会員限定コンテンツが見放題</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- フッター -->
+            <footer>
+                <div class="footer-container">
+                    <p>&copy; 2025 AIVision All Rights Reserved.</p>
+                </div>
+            </footer>
+        </div>
+
+        <!-- サポーターコンテンツ -->
+        <div id="supporter-content" class="page-content">
+            <div class="content-placeholder">
+                <h2>サポーターになる</h2>
+                <p>サポーターの内容がここに表示されます</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="script_db.js"></script>
+</body>
+</html>
